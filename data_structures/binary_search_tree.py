@@ -62,28 +62,39 @@ def add_node(root, value):
     # if root is null, this node must be the root
     if root is None:
         root = node()
+        if value is not None:
+            root.value = value
+            root.counter += 1
+        return root
+
+    if root.value is None and value is not None:
         root.value = value
         root.counter += 1
         return root
+
     # if value is less than root.value go to left nodes
     if value < root.value:
+        root.left = add_node(root.left, value)
         # if the left node does not exist
-        if (root.left is None):
-            root.left = node()
-            root.left.value = value
-            root.left.counter += 1
-        else:
-            root.left = add_node(root.left, value)
+        # if root.left is None:
+        #     root.left = node()
+        #     root.left.value = value
+        #     if value is not None:
+        #         root.left.counter += 1
+        # else:
+        #     root.left = add_node(root.left, value)
 
     if value > root.value:
-        if (root.right is None):
-            root.right = node()
-            root.right.value = value
-            root.right.counter += 1
-        else:
-            root.right = add_node(root.right, value)
+        root.right = add_node(root.right, value)
+        # if root.right is None:
+        #     root.right = node()
+        #     root.right.value = value
+        #     if value is not None:
+        #         root.right.counter += 1
+        # else:
+        #     root.right = add_node(root.right, value)
 
-    if value == root.value:
+    if value == root.value and value is not None:
         root.counter += 1
 
     return root
@@ -128,8 +139,8 @@ def destroy_tree(root):
 # %%
 
 
-def create_tree(value):
-    return add_node(None, value)
+def create_tree():
+    return add_node(None, None)
 
 # %%
 
